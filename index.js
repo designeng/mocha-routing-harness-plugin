@@ -19,7 +19,7 @@ module.exports = function mochaRoutingHarnessPlugin(options) {
             addSyncTestFiles(paths);
 
             mocha.run(function(failures) {
-                failures ? resolve(1) : reject(0);
+                failures ? reject(1) : resolve(0);
             });
         });
     }
@@ -27,6 +27,12 @@ module.exports = function mochaRoutingHarnessPlugin(options) {
     return {
         factories: {
             createMochaHarness
+        },
+        context: {
+            error: (resolver, wire, err) => {
+                console.log('ERROR:::', err);
+                resolver.resolve();
+            }
         }
     }
 }
