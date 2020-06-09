@@ -1,10 +1,9 @@
-const mochaRoutingHarnessPlugin = require('../index');
-const wire = require('wire');
-const chai = require('chai');
-const expect = chai.expect;
-
-const EventEmitter = require('events');
-const forkProcessPlugin = require('fork-process-plugin');
+import mochaRoutingHarnessPlugin from '../index';
+import wire from 'wire';
+import chai, { expect } from 'chai';
+import EventEmitter from 'events';
+import forkProcessPlugin from 'fork-process-plugin';
+import args from './decorators/args';
 
 let context;
 
@@ -20,35 +19,22 @@ const spec = {
         }
     },
 
-    appProcess: {
-        create: {
-            module: (deferredFork) => {
-                return deferredFork(); /* Run app process first */
-            },
-            args: [
-                {$ref: 'deferredFork'}
-            ]
-        }
-    },
+    @args({$ref: 'deferredFork'})
+    appProcess: (deferredFork) => deferredFork(), /* Run app process first */
 
-    eventEmitter: {
-        create: {
-            module: () => {
-                const em = new EventEmitter();
-                setTimeout(function() {
-                    em.emit('someEvent', 'a');
-                }, 998)
-                setTimeout(function() {
-                    em.emit('someEvent', 'b');
-                }, 999)
-                setTimeout(function() {
-                    em.emit('close', 'c');
-                }, 1000)
-                return em;
-            },
-            args: [
-            ]
-        }
+    @args()
+    eventEmitter: () => {
+        const em = new EventEmitter();
+        setTimeout(function() {
+            em.emit('someEvent', 'a');
+        }, 998)
+        setTimeout(function() {
+            em.emit('someEvent', 'b');
+        }, 999)
+        setTimeout(function() {
+            em.emit('close', 'c');
+        }, 1000)
+        return em;
     },
 
     mochaHarness: {
