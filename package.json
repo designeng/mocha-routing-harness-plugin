@@ -9,9 +9,13 @@
   },
   "keywords": [],
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "fork-process-plugin": "0.0.1",
+    "most": "^1.8.1"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
+    "express": "^4.17.1",
     "mocha": "^7.2.0",
     "wire": "git://github.com/cujojs/wire.git#0.10.11"
   },
