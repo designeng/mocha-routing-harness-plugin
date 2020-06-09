@@ -13,8 +13,14 @@ const spec = {
         forkProcessPlugin
     ],
 
+    deferredRoutingTestsFork: {
+        createDeferredFork: {
+            path: __dirname + '/assets/express/app.js'
+        }
+    },
+
     deferredAppFork: {
-        createdeferredAppFork: {
+        createDeferredFork: {
             path: __dirname + '/assets/express/app.js'
         }
     },
