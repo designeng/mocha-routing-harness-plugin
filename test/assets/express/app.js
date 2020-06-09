@@ -1,8 +1,4 @@
 var express = require('express');
-
-var pid = process.pid;
-process.send({ pid });
-
 var app = express();
 
 app.get('/', function (req, res) {
@@ -11,6 +7,7 @@ app.get('/', function (req, res) {
 
 var server = app.listen(3002, () => {
     console.log('Listening...');
+    process.send('online');
 });
 
 process.on('SIGINT', () => {
