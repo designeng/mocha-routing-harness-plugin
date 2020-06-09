@@ -13,27 +13,26 @@ const spec = {
         forkProcessPlugin
     ],
 
-    deferredFork: {
-        createDeferredFork: {
+    deferredAppFork: {
+        createdeferredAppFork: {
             path: __dirname + '/assets/express/app.js'
         }
     },
 
-    @args({$ref: 'deferredFork'})
-    appProcess: (deferredFork) => deferredFork(), /* Run app process first */
+    @args({$ref: 'deferredAppFork'})
+    appProcess: (deferredAppFork) => deferredAppFork(), /* Run app process first */
 
-    @args()
-    eventEmitter: () => {
+    @args({$ref: 'appProcess'})
+    eventEmitter: (appProcess) => {
         const em = new EventEmitter();
-        setTimeout(function() {
-            em.emit('someEvent', 'a');
-        }, 998)
-        setTimeout(function() {
-            em.emit('someEvent', 'b');
-        }, 999)
-        setTimeout(function() {
-            em.emit('close', 'c');
-        }, 1000)
+        appProcess.on('message', message => {
+            if(message === 'error') {
+                em.emit('appEvent', 0);
+            }
+            if(message === 'online') {
+                em.emit('appEvent', 1);
+            }
+        })
         return em;
     },
 
