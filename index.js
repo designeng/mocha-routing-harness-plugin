@@ -32,7 +32,7 @@ module.exports = function mochaRoutingHarnessPlugin() {
         }
 
         wire(compDef.options).then(({ emitter })=> {
-            const $stream = most.fromEvent('someEvent', emitter);
+            const $stream = most.fromEvent('appEvent', emitter);
             $stream.scan(accumulate, []).forEach(s => console.log('DATA:', s));
             resolve($stream);
         });
