@@ -2,8 +2,9 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const Mocha = require('mocha');
+const most = require('most');
 
-module.exports = function mochaRoutingHarnessPlugin(options) {
+module.exports = function mochaRoutingHarnessPlugin() {
     function createMochaHarness({ resolve, reject }, compDef, wire) {
         wire(compDef.options).then(paths => {
             const mocha = new Mocha();
@@ -24,9 +25,23 @@ module.exports = function mochaRoutingHarnessPlugin(options) {
         });
     }
 
+    function createStreamFromEventEmitter({ resolve, reject }, compDef, wire) {
+        const accumulate = (arr, x) => {
+            arr.push(x);
+            return arr;
+        }
+
+        wire(compDef.options).then(({ emitter })=> {
+            const $stream = most.fromEvent('someEvent', emitter);
+            $stream.scan(accumulate, []).forEach(s => console.log('DATA:', s));
+            resolve($stream);
+        });
+    }
+
     return {
         factories: {
-            createMochaHarness
+            createMochaHarness,
+            createStreamFromEventEmitter
         },
         context: {
             error: (resolver, wire, err) => {
