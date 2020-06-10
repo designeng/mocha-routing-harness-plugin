@@ -69,8 +69,9 @@ const spec = {
 before(async () => {
     try {
         context = await wire(spec);
+        const result = context.runRoutingTestsOnAppOnline;
 
-        console.log('CONTEXT CREATED');
+        console.log('CONTEXT CREATED. TESTS RESULT:', result);
     } catch (err) {
         console.log('Wiring error', err);
     }
