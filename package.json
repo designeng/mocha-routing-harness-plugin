@@ -10,6 +10,7 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "fork-process-plugin": "0.0.1",
     "most": "^1.8.1",
     "workerpool": "^6.0.0"
