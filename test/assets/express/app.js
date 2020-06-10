@@ -2,7 +2,11 @@ var express = require('express');
 var app = express();
 
 app.get('/', function (req, res) {
-    res.end('Forked process');
+    res.end('Forked process main page');
+});
+
+app.get('/users', function (req, res) {
+    res.end('Forked process users page');
 });
 
 var server = app.listen(3002, () => {

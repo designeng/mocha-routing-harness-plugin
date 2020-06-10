@@ -56,7 +56,8 @@ const spec = {
                             routingTests.terminate();
                         })
                         .catch(function (err) {
-                            console.error(err);
+                            console.error('WORKER POLL ERROR:::::::::', err);
+                            appProcess.send('shutdown');
                             reject(err);
                         });
                 }
