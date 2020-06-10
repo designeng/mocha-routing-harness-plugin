@@ -81,11 +81,14 @@ describe('harness', () => {
     it('should be created', async () => {
         await expect(context).to.be.ok;
     });
+
+    it('should pass routing tests', async () => {
+        await expect(context.runRoutingTestsOnAppOnline).to.equal(1);
+    });
 });
 
 after(async () => {
     setTimeout(() => {
-        console.log('DESTROY');
         context.destroy();
     }, 2000)
 });

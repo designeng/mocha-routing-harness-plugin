@@ -7,7 +7,6 @@ const BASE_URL = 'http://localhost:3002';
 const routes = [
     '/',
     '/users',
-    '/items',
 ]
 
 const runTests = () => {
@@ -23,7 +22,7 @@ const runTests = () => {
         makeRequest,
         0
     ).then(_ => {
-        return 'TESTS SUCCESS';
+        return 1;
     }).catch(error => {
         return error;
     })
