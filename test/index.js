@@ -19,12 +19,6 @@ const spec = {
         ]
     },
 
-    deferredRoutingTestsFork: {
-        createDeferredFork: {
-            path: __dirname + '/assets/routing/tests.js'
-        }
-    },
-
     deferredAppFork: {
         createDeferredFork: {
             path: __dirname + '/assets/express/app.js'
@@ -56,7 +50,7 @@ const spec = {
                             routingTests.terminate();
                         })
                         .catch(function (err) {
-                            console.error('WORKER POLL ERROR:::::::::', err);
+                            console.error('WORKER POOL ERROR:::::::::', err);
                             appProcess.send('shutdown');
                             reject(err);
                         });
