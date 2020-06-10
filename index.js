@@ -2,7 +2,6 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const Mocha = require('mocha');
-const most = require('most');
 
 module.exports = function mochaRoutingHarnessPlugin() {
     function createMochaHarness({ resolve, reject }, compDef, wire) {
