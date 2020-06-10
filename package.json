@@ -27,5 +27,5 @@
     "mocha": "^7.2.0",
     "wire": "git://github.com/cujojs/wire.git#0.10.11"
   },
-  "repository": "mocha-routing-harness-plugin"
+  "repository": "designeng/mocha-routing-harness-plugin"
 }
