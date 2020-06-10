@@ -6,10 +6,11 @@ const { expect } = require('chai');
 const BASE_URL = 'http://localhost:3002';
 const routes = [
     '/',
-    '/users'
+    '/users',
+    '/items',
 ]
 
-const mokePromise = () => {
+const runTests = () => {
     const makeRequest = (index) =>
         axios.get(BASE_URL + routes[index]).then(res => {
             console.log('res.status...', res.status);
@@ -23,11 +24,13 @@ const mokePromise = () => {
         0
     ).then(_ => {
         return 'TESTS SUCCESS';
-    });
+    }).catch(error => {
+        return error;
+    })
 }
 
 async function run(n) {
-    return await mokePromise();
+    return await runTests();
 }
 
 workerpool.worker({
