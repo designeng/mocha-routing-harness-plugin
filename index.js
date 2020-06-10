@@ -25,29 +25,9 @@ module.exports = function mochaRoutingHarnessPlugin() {
         });
     }
 
-    function createStreamFromEventEmitter({ resolve, reject }, compDef, wire) {
-        const accumulate = (arr, x) => {
-            arr.push(x);
-            return arr;
-        }
-
-        wire(compDef.options).then(({ emitter })=> {
-            const $stream = most.fromEvent('appEvent', emitter);
-            $stream.scan(accumulate, []).forEach(s => console.log('DATA:', s));
-            resolve($stream);
-        });
-    }
-
     return {
         factories: {
-            createMochaHarness,
-            createStreamFromEventEmitter
-        },
-        context: {
-            error: (resolver, wire, err) => {
-                console.log('ERROR:::', err);
-                resolver.resolve();
-            }
+            createMochaHarness
         }
     }
 }
